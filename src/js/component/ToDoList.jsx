@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Item from "./Item.jsx"
 
 // useState to initialize the to-do list
 
@@ -8,10 +9,7 @@ const ToDoList = () => {
     { id: 2, name: "dance", completed: false },
     { id: 3, name: "work", completed: false },
   ]);
-
-  // useState to show or hide the delete button
-  const [show, setShow] = useState(false);
-
+  
   // function for the delete button onClick using filter
   function deleteTask(i) {
     setTodos((currentValue) =>
@@ -37,7 +35,6 @@ const ToDoList = () => {
       <h1>To-do</h1>
 
       <div className="toDoWrapper">
-
         {/* input form for new to-do items */}
         <div className="input">
           <form onSubmit={addItem}>
@@ -56,25 +53,7 @@ const ToDoList = () => {
         {/* list of to-do items */}
         <ul>
           {toDoList.map((todo, i) => {
-            return (
-              <li
-                key={i}
-                className="toDoItem"
-                // hide or show delete button
-                onMouseOver={() => setShow(true)}
-                onMouseOut={() => setShow(false)}
-              >
-                <div className="content">
-                  <p>{todo.name}</p>
-                  <button
-                    className={show ? "d-block" : "d-none"}
-                    onClick={() => deleteTask(i)}
-                  >
-                    X
-                  </button>
-                </div>
-              </li>
-            );
+            return <Item i={i} todo={todo} deleteTask={deleteTask}/>;
           })}
 
           <div className="counter">
